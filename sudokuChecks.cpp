@@ -2,7 +2,7 @@
 
 bool validPosition(unsigned short board[SUDOKU_SIZE][SUDOKU_SIZE], unsigned short num, unsigned short x, unsigned short y)
 {
-	if (validRow(board, num, y) && validColumn(board, num, x) && validDiagonalTLBR(board, num, x, y) && validDiagonalBLTR(board, num, x, y))
+	if (validRow(board, num, y) && validColumn(board, num, x) && validDiagonalTLBR(board, num, x, y) && validDiagonalBLTR(board, num, x, y) && validSquare(board, num, x, y))
 		return true;
 	return false;
 }
@@ -63,4 +63,27 @@ bool validDiagonalBLTR(unsigned short board[SUDOKU_SIZE][SUDOKU_SIZE], unsigned 
 			return false;
 
 	return true;
+}
+
+
+bool validSquare(unsigned short board[SUDOKU_SIZE][SUDOKU_SIZE], unsigned short num, unsigned short x, unsigned short y)
+{
+	unsigned short x_from, x_to;
+	x_from = (x / SQUARE_SIZE);
+	x_to = x_from + (SQUARE_SIZE - 1);
+
+	unsigned short y_from, y_to;
+	y_from = (y / SQUARE_SIZE);
+	y_to = y_from + (SQUARE_SIZE - 1);
+
+	//Scans the calculated range for the number
+	for (unsigned short i = x_from; i <= x_to; ++i) {
+		for (unsigned short j = y_from; j <= y_to; ++j) {
+			if (board[i][j] == num)
+				return false;
+		}
+	}
+
+	return true;
+
 }

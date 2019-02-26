@@ -1,5 +1,6 @@
 #pragma once
 #define SUDOKU_SIZE 9
+#define SQUARE_SIZE 3
 
 //Function to check if the position is valid (calls all of the following functions)
 bool validPosition(unsigned short board[SUDOKU_SIZE][SUDOKU_SIZE], unsigned short num, unsigned short x, unsigned short y);
@@ -15,3 +16,6 @@ bool validDiagonalTLBR(unsigned short board[SUDOKU_SIZE][SUDOKU_SIZE], unsigned 
 
 //Checks if the given num can be used in the diagonal bottom-left to top-right relative to the given position
 bool validDiagonalBLTR(unsigned short board[SUDOKU_SIZE][SUDOKU_SIZE], unsigned short num, unsigned short x, unsigned short y);
+
+//Checks if the given num can be used in the square correspondant to the given position
+bool validSquare(unsigned short board[SUDOKU_SIZE][SUDOKU_SIZE], unsigned short num, unsigned short x, unsigned short y);
