@@ -1,24 +1,21 @@
-#include <iostream>
-
-#include "sudokuChecks.h"
+#include "sudoku.h"
 
 int main() {
-	//Empty fields should be set to 0
-	unsigned short board[SUDOKU_SIZE][SUDOKU_SIZE] =
+	//Tablero Sudoku
+	//Valor por defecto:	-1
+	int sudoku[BOARD_SIZE][BOARD_SIZE] =
 	{
-	{0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0}
+		{ 5,	 3,		-1,		-1,		 7,		-1,		-1,		-1,		-1},
+		{ 6,	-1,		-1,		 1,		 9,		 5,		-1,		-1,		-1},
+		{-1,	 9,		 8,		-1,		-1,		-1,		-1,		 6,		-1},
+		{ 8,	-1,		-1,		-1,		 6,		-1,		-1,		-1,		 3},
+		{ 4,	-1,		-1,		 8,		-1,		 3,		-1,		-1,		 1},
+		{ 7,	-1,		-1,		-1,		 2,		-1,		-1,		-1,		 6},
+		{-1,	 6,		-1,		-1,		-1,		-1,		 2,		 8,		-1},
+		{-1,	-1,		-1,		 4,		 1,		 9,		-1,		-1,		 5},
+		{-1,	-1,		-1,		-1,		 8,		-1,		-1,		 7,		 9}
 	};
-
-	if (validPosition(board, 5, 0, 0))
-		std::cout << "Valid";
-
+	resolverSudoku(sudoku);
+	mostrarSudoku(sudoku);
 	return 0;
 }
