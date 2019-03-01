@@ -3,25 +3,34 @@
 #define BOARD_SIZE 9
 #define START_VALUE -1
 
+class Sudoku {
+private:
+	int tablero[BOARD_SIZE][BOARD_SIZE];
 
-//Resuelve el Sudoku
-//@Require	param1 must have solution
-//@Param	int[][]		Tabla de Sudoku
-void resolverSudoku(int sudoku[BOARD_SIZE][BOARD_SIZE]);
+	//Codigo proporcionado en ejercicio
+	//@Param	int[][]		Tabla de Sudoku
+	//@Param	int			Fila
+	//@Param	int			Columna
+	//@Param	int			Valor
+	//@Returns	bool		true if valid position for number
+	bool esValido(int fila, int columna, int valor);
 
-//Checks if any empty cells left
-//@Param	int[][]		Tabla de Sudoku
-//@Returns	bool		true if empty cells left
-bool quedanVacias(int sudoku[BOARD_SIZE][BOARD_SIZE]);
+public:
+	//Constructor
+	//@Param1	int[][]		Sudoku Board
+	Sudoku(int sudoku[BOARD_SIZE][BOARD_SIZE]);
 
-//Imprime el tablero de sudoku
-//@Param	int[][]		Tabla de Sudoku
-void mostrarSudoku(int sudoku[BOARD_SIZE][BOARD_SIZE]);
+	//Destructor
+	~Sudoku();
 
-//Codigo proporcionado en ejercicio
-//@Param	int[][]		Tabla de Sudoku
-//@Param	int			Fila
-//@Param	int			Columna
-//@Param	int			Valor
-//@Returns	bool		true if valid position for number
-bool esValido(int sudoku[BOARD_SIZE][BOARD_SIZE], int fila, int columna, int valor);
+	//Resuelve el Sudoku
+	//@Requires				must have solution
+	void resolver();
+
+	//Checks if any empty cells left
+	//@Returns	bool		true if empty cells left
+	bool quedanVacias();
+
+	//Imprime el tablero de sudoku
+	void mostrar();
+};

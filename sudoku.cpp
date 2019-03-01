@@ -2,7 +2,19 @@
 
 #include "sudoku.h"
 
-void resolverSudoku(int sudoku[BOARD_SIZE][BOARD_SIZE])
+Sudoku::Sudoku(int sudoku[BOARD_SIZE][BOARD_SIZE])
+{
+	for (int i = 0; i < BOARD_SIZE; ++i)
+		for (int j = 0; j < BOARD_SIZE; ++j)
+			this->tablero[i][j] = sudoku[i][j];
+}
+
+Sudoku::~Sudoku()
+{
+
+}
+
+void Sudoku::resolver()
 {
 	int x = -1, y = -1;
 
@@ -10,9 +22,9 @@ void resolverSudoku(int sudoku[BOARD_SIZE][BOARD_SIZE])
 	//a la función se va a encargar
 	for (int i = 0; i < BOARD_SIZE && x == -1; ++i)
 		for (int j = 0; j < BOARD_SIZE && y == -1; ++j)
-			if (sudoku[i][j] == START_VALUE) {//Comprueba que esté vacía la casilla (quitado de función 'esValido')
+			if (this->tablero[i][j] == START_VALUE) {//Comprueba que esté vacía la casilla (quitado de función 'esValido')
 				x = i;
-				y = j;					
+				y = j;
 			}
 	//Si ya no quedan filas, se ha completado correctamente
 	if (x == -1)
@@ -22,38 +34,38 @@ void resolverSudoku(int sudoku[BOARD_SIZE][BOARD_SIZE])
 	//Además, todos los siguientes deben serlo también. De no ser así,
 	//prueba con el siguiente número. Si no vale ninguna combinación, vuelve a la llamada anterior
 	for (int num = 1; num <= BOARD_SIZE; ++num) {
-		if (esValido(sudoku, x, y, num)) {
-			sudoku[x][y] = num;
-			resolverSudoku(sudoku);
-			if (!quedanVacias(sudoku))//Si todos los demás son válidos 'backtrack'.
+		if (this->esValido(x, y, num)) {
+			this->tablero[x][y] = num;
+			this->resolver();
+			if (!this->quedanVacias())//Si todos los demás son válidos 'backtrack'.
 				return;
 		}
 
 	}
 	//Si no se ha encontrado ningún número válido, volver al valor por defecto
 	//para que la llamada anterior vea que no se ha completado el tablero
-	sudoku[x][y] = -1;
+	this->tablero[x][y] = -1;
 }
 
 
-bool quedanVacias(int sudoku[BOARD_SIZE][BOARD_SIZE])
+bool Sudoku::quedanVacias()
 {
 	for (int i = 0; i < BOARD_SIZE; ++i)
 		for (int j = 0; j < BOARD_SIZE; ++j)
-			if (sudoku[i][j] == START_VALUE)
+			if (this->tablero[i][j] == START_VALUE)
 				return true;
 
 	return false;
 }
 
-void mostrarSudoku(int sudoku[BOARD_SIZE][BOARD_SIZE])
+void Sudoku::mostrar()
 {
 	std::cout << "-------------------------------------------------------" << std::endl;
 	for (int i = 0; i < BOARD_SIZE; ++i) {
 		for (int j = 0; j < BOARD_SIZE; ++j) {
 			if (j == 0)
 				std::cout << "|  ";
-			std::cout << sudoku[i][j];
+			std::cout << this->tablero[i][j];
 			if ((j + 1) % 3 == 0)
 				std::cout << "  |  ";
 			else
@@ -67,19 +79,19 @@ void mostrarSudoku(int sudoku[BOARD_SIZE][BOARD_SIZE])
 }
 
 
-bool esValido(int sudoku[BOARD_SIZE][BOARD_SIZE], int fila, int columna, int valor) {
+bool Sudoku::esValido(int fila, int columna, int valor) {
 
 	for (int i = 0; i < BOARD_SIZE; ++i) {
-		if (sudoku[fila][i] == valor) return false;
-		if (sudoku[i][columna] == valor) return false;
+		if (this->tablero[fila][i] == valor) return false;
+		if (this->tablero[i][columna] == valor) return false;
 	}
-	
+
 	int despFila = (fila / 3) * 3;
 	int despColumna = (columna / 3) * 3;
-	
+
 	for (int i = despFila; i < despFila + 3; ++i)
 		for (int j = despColumna; j < despColumna + 3; ++j)
-			if (sudoku[i][j] == valor) return false;
+			if (this->tablero[i][j] == valor) return false;
 
 	return true;
 }

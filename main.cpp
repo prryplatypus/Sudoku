@@ -1,8 +1,6 @@
-#include "sudoku.h"
+#include "Sudoku.h"
 
 int main() {
-	//Tablero Sudoku
-	//Valor por defecto:	-1
 	int sudoku[BOARD_SIZE][BOARD_SIZE] =
 	{
 		{ 5,	 3,		-1,		-1,		 7,		-1,		-1,		-1,		-1},
@@ -15,7 +13,10 @@ int main() {
 		{-1,	-1,		-1,		 4,		 1,		 9,		-1,		-1,		 5},
 		{-1,	-1,		-1,		-1,		 8,		-1,		-1,		 7,		 9}
 	};
-	resolverSudoku(sudoku);
-	mostrarSudoku(sudoku);
+
+	Sudoku juego1(sudoku);
+
+	juego1.resolver();
+	juego1.mostrar();
 	return 0;
 }
