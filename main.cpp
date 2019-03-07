@@ -1,4 +1,4 @@
-#include "Sudoku.h"
+#include "sudoku.h"
 
 int main() {
 	int sudoku[BOARD_SIZE][BOARD_SIZE] =
